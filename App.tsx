@@ -61,7 +61,7 @@ const App: React.FC = () => {
   });
 
   const [lastOrder, setLastOrder] = useState<OrderDetails | null>(null);
-  const { user, logout } = useAuth(); // Use AuthContext
+  const { user, userData, logout } = useAuth(); // Use AuthContext
   const navigate = useNavigate();
 
   // --- Effects ---
@@ -109,6 +109,7 @@ const App: React.FC = () => {
         onAccountClick={handleAccountClick}
         cartCount={0}
         user={user as any} // Cast to match existing component type if needed
+        userData={userData}
       />
 
       <main className="flex-grow">
