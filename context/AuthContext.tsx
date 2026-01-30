@@ -12,9 +12,10 @@ import { auth, db } from '../firebase';
 
 interface AuthContextType {
     user: User | null;
-    userData: any | null;
+
+    userData: { role?: 'user' | 'admin';[key: string]: any } | null;
     loading: boolean;
-    signup: (email: string, password: string, additionalData?: any) => Promise<UserCredential>;
+    signup: (email: string, password: string, role?: string, additionalData?: any) => Promise<UserCredential>;
     login: (email: string, password: string) => Promise<UserCredential>;
     logout: () => Promise<void>;
     isAuthenticated: boolean;
@@ -57,7 +58,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         return unsubscribe;
     }, []);
 
-    const signup = async (email: string, password: string, additionalData: any = {}) => {
+    const signup = async (email: string, password: string, role: string = 'user', additionalData: any = {}) => {
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
 
@@ -66,6 +67,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
                 await setDoc(doc(db, 'users', userCredential.user.uid), {
                     email: email,
                     uid: userCredential.user.uid,
+                    role: role,
                     createdAt: serverTimestamp(),
                     updatedAt: serverTimestamp(),
                     ...additionalData

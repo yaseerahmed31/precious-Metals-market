@@ -45,7 +45,7 @@ export const SignUp: React.FC = () => {
         setLoading(true);
         try {
             const { email, password, confirmPassword, ...additionalData } = formData;
-            await signup(email, password, additionalData);
+            await signup(email, password, 'user', additionalData);
             navigate('/', { replace: true });
             // NOTE: Don't setLoading(false) here on success - navigation handles unmount
         } catch (err: any) {
