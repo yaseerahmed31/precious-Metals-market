@@ -8,6 +8,7 @@ import { SignIn } from './pages/SignIn';
 import { SignUp } from './pages/SignUp';
 import { MarketPage } from './pages/MarketPage';
 import { ProductPage } from './pages/ProductPage';
+import { CheckoutPage } from './pages/Checkout';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { MetalPrices, MetalType, OrderDetails } from './types';
 import { INITIAL_GOLD_PRICE, INITIAL_SILVER_PRICE } from './constants';
@@ -45,7 +46,7 @@ const App: React.FC = () => {
 
   const handlePlaceOrder = (details: OrderDetails) => {
     setLastOrder(details);
-    navigate('/confirmation');
+    navigate('/checkout', { state: { order: details } });
     window.scrollTo(0, 0);
   };
 
@@ -86,6 +87,11 @@ const App: React.FC = () => {
           <Route path="/signup" element={<SignUp />} />
 
           {/* Protected Routes */}
+          <Route path="/checkout" element={
+            <ProtectedRoute>
+              <CheckoutPage />
+            </ProtectedRoute>
+          } />
           <Route path="/account" element={
             <ProtectedRoute>
               <Account
