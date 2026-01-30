@@ -83,7 +83,7 @@ export const Navbar: React.FC<NavbarProps> = ({ prices, onNavigateHome, onAccoun
             >
               <UserIcon size={22} className="mb-1" />
               <span className="text-[10px] font-bold uppercase tracking-wider group-hover:text-[#b8860b]">
-                {user ? user.name.split(' ')[0] : 'Account'}
+                {user?.name?.split(' ')[0] || 'Account'}
               </span>
             </button>
             <button className="hidden md:flex flex-col items-center hover:text-[#b8860b] transition-colors group">

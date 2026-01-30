@@ -12,7 +12,21 @@ code {
     monospace;
 }
 
-/* Tailwind directives - these will be ignored if not processed, but safe to include */
-/* @tailwind base; */
-/* @tailwind components; */
-/* @tailwind utilities; */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-sans antialiased text-slate-900 bg-[#fcfbf7];
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-serif;
+  }
+}

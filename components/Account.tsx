@@ -39,7 +39,7 @@ export const Account: React.FC<AccountProps> = ({ user, onLogout, lastOrder }) =
         <div className="mb-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <h1 className="text-3xl font-serif text-[#2a1b12] mb-1">My Account</h1>
-            <p className="text-gray-500 text-sm">Welcome back, <span className="font-bold text-[#b8860b]">{user.name}</span></p>
+            <p className="text-gray-500 text-sm">Welcome back, <span className="font-bold text-[#b8860b]">{user?.name || 'User'}</span></p>
           </div>
           <button
             onClick={onLogout}
@@ -143,7 +143,7 @@ export const Account: React.FC<AccountProps> = ({ user, onLogout, lastOrder }) =
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Full Name</label>
-                    <input type="text" value={user.name} readOnly className="w-full bg-[#faf8f5] border border-[#e5e0d1] rounded px-4 py-3 text-sm text-gray-600 cursor-not-allowed" />
+                    <input type="text" value={user?.name || ''} readOnly className="w-full bg-[#faf8f5] border border-[#e5e0d1] rounded px-4 py-3 text-sm text-gray-600 cursor-not-allowed" />
                   </div>
                   <div>
                     <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Email Address</label>
