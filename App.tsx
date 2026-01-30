@@ -1,56 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, useNavigate, useSearchParams, useParams, Navigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
-import { ProductList } from './components/ProductList';
-import { ProductDetail } from './components/ProductDetail';
 import { OrderConfirmation } from './components/OrderConfirmation';
 import { Account } from './components/Account';
 import { SignIn } from './pages/SignIn';
 import { SignUp } from './pages/SignUp';
+import { MarketPage } from './pages/MarketPage';
+import { ProductPage } from './pages/ProductPage';
 import { ProtectedRoute } from './components/ProtectedRoute';
-import { MetalPrices, Product, MetalType, OrderDetails } from './types';
-import { PRODUCTS, INITIAL_GOLD_PRICE, INITIAL_SILVER_PRICE } from './constants';
+import { MetalPrices, MetalType, OrderDetails } from './types';
+import { INITIAL_GOLD_PRICE, INITIAL_SILVER_PRICE } from './constants';
 import { getSimulatedPrices } from './services/priceService';
 import { Facebook, Instagram, Twitter, Youtube, Mail } from 'lucide-react';
 import { useAuth } from './context/AuthContext';
-
-// Wrapper for ProductList to handle URL params
-const MarketPage: React.FC<{ prices: MetalPrices }> = ({ prices }) => {
-  const { category } = useParams<{ category: string }>();
-  const navigate = useNavigate();
-  const selectedCategory = (category === 'silver' ? 'silver' : 'gold') as MetalType;
-
-  const filteredProducts = PRODUCTS.filter(p => p.type === selectedCategory);
-
-  return (
-    <ProductList
-      products={filteredProducts}
-      currentPrices={prices}
-      selectedCategory={selectedCategory}
-      onProductClick={(product) => navigate(`/product/${product.id}`)}
-      onBack={() => navigate('/')}
-    />
-  );
-};
-
-// Wrapper for ProductDetail to handle URL params
-const ProductDetailPage: React.FC<{ prices: MetalPrices, onPlaceOrder: (details: OrderDetails) => void }> = ({ prices, onPlaceOrder }) => {
-  const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
-  const product = PRODUCTS.find(p => p.id === id);
-
-  if (!product) return <div className="p-8 text-center">Product not found. <button onClick={() => navigate('/')} className="text-[#b8860b] underline">Go Home</button></div>;
-
-  return (
-    <ProductDetail
-      product={product}
-      currentPrices={prices}
-      onBack={() => navigate(-1)}
-      onPlaceOrder={onPlaceOrder}
-    />
-  );
-};
 
 const App: React.FC = () => {
   // --- State ---
@@ -117,7 +80,7 @@ const App: React.FC = () => {
           {/* Public Routes */}
           <Route path="/" element={<Hero onSelectCategory={handleSelectCategory} />} />
           <Route path="/market/:category" element={<MarketPage prices={prices} />} />
-          <Route path="/product/:id" element={<ProductDetailPage prices={prices} onPlaceOrder={handlePlaceOrder} />} />
+          <Route path="/product/:id" element={<ProductPage prices={prices} onPlaceOrder={handlePlaceOrder} />} />
           <Route path="/confirmation" element={lastOrder ? <OrderConfirmation order={lastOrder} onHome={handleNavigateHome} /> : <Navigate to="/" />} />
           <Route path="/login" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
