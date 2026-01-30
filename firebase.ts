@@ -3,13 +3,14 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 // Your web app's Firebase configuration
+// Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-    authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-    storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-    appId: import.meta.env.VITE_FIREBASE_APP_ID
+    apiKey: "AIzaSyCdXvco8ZXX_xZVHKDfcX-8MbgEBdj-kIc",
+    authDomain: "precious-metals-market.firebaseapp.com",
+    projectId: "precious-metals-market",
+    storageBucket: "precious-metals-market.firebasestorage.app",
+    messagingSenderId: "197723306598",
+    appId: "1:197723306598:web:4903ca6fd24d5e40880ba7"
 };
 
 // Initialize Firebase
